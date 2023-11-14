@@ -22,25 +22,39 @@ score_writer.goto(400,350)
 counter =  trtl.Turtle()
 counter.penup()
 counter.goto(-400,350)
+colors = ["red", "blue", "green", "purple", "navy", "orange"]
+sizes = [4,3,2,1,0.5]
 
 #-----countdown variables-----
 font_setup = ("Arial", 20, "normal")
-timer = 5
+timer = 30
 counter_interval = 1000   #1000 represents 1 second
 timer_up = False
 
 
 # -----game functions--------
+def sizeChange():
+    newSize = rand.choice(sizes)
+    shell.turtlesize(newSize)
+def colorChange():
+    newColor = rand.choice(colors)
+    shell.fillcolor(newColor)
+    shell.stamp()
+    shell.fillcolor(shell_color)
+    # shell.turtlesize(shell_size)
+
 def countdown():
   global timer, timer_up
   counter.clear()
   if timer <= 0:
     counter.write("Time's Up", font=font_setup)
     timer_up = True
+    shell.hideturtle()
   else:
     counter.write("Timer: " + str(timer), font=font_setup)
     timer -= 1
     counter.getscreen().ontimer(countdown, counter_interval)
+
 
 def update_score():
     global score  # gives this function access to the score that was created above
@@ -58,6 +72,9 @@ def change_position():
     shell.showturtle()
 
 def shell_clicked(x,y):
+    countdown()
+    sizeChange()
+    colorChange()
     change_position()
     update_score()
 
@@ -67,5 +84,6 @@ shell.onclick(shell_clicked)
 
 
 wn = trtl.Screen()
+wn.bgcolor("light blue")
 wn.ontimer(countdown, counter_interval)
 wn.mainloop()
