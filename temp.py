@@ -11,15 +11,15 @@ for stars in range(5):
 
 
 # Bonus
+
 def stars():
     spaces = " "
-    space =
     num = 4
     number = 1
-    star = "*"
+    star = "* "
     for stars in range(5):
-        print(spaces * num)
-        print(star * number)
+        # print(spaces * num)
+        print(spaces * num, star * number)
         number = number + 1
         num = num - 1
 

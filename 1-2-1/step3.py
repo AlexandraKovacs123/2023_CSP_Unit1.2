@@ -2,9 +2,12 @@
 # -----import statements-----
 import turtle as trtl
 import random as rand
+import leaderboard as lb
 
 
 # -----game configuration----
+leaderboard_file_name = "a122_leaderboard.txt"
+player_name = input("What is your name?")
 shell_color = "pink"
 shell_size = 2
 shell_shape = "turtle"
@@ -77,6 +80,24 @@ def shell_clicked(x,y):
     colorChange()
     change_position()
     update_score()
+
+# manages the leaderboard for top 5 scorers
+def manage_leaderboard():
+
+    global score
+    global shell
+
+    # get the names and scores from the leaderboard file
+    leader_names_list = lb.get_names(leaderboard_file_name)
+    leader_scores_list = lb.get_scores(leaderboard_file_name)
+
+    # show the leaderboard with or without the current player
+    if (len(leader_scores_list) < 5 or score >= leader_scores_list[4]):
+       lb.update_leaderboard(leaderboard_file_name, leader_names_list, leader_scores_list, player_name, score)
+       lb.draw_leaderboard(True, leader_names_list, leader_scores_list, spot, score)
+
+    else:
+       lb.draw_leaderboard(False, leader_names_list, leader_scores_list, spot, score)
 
 #-----events----------------
 shell.onclick(shell_clicked)
