@@ -7,7 +7,7 @@ import leaderboard as lb
 
 # -----game configuration----
 leaderboard_file_name = "a122_leaderboard.txt"
-player_name = input("What is your name?")
+player_name = input("What is your name? ")
 shell_color = "pink"
 shell_size = 2
 shell_shape = "turtle"
@@ -30,7 +30,7 @@ sizes = [4,3,2,1,0.5]
 
 #-----countdown variables-----
 font_setup = ("Arial", 20, "normal")
-timer = 30
+timer = 5
 counter_interval = 1000   #1000 represents 1 second
 timer_up = False
 
@@ -52,6 +52,7 @@ def countdown():
   if timer <= 0:
     counter.write("Time's Up", font=font_setup)
     timer_up = True
+    manage_leaderboard()
     shell.hideturtle()
   else:
     counter.write("Timer: " + str(timer), font=font_setup)
@@ -94,10 +95,10 @@ def manage_leaderboard():
     # show the leaderboard with or without the current player
     if (len(leader_scores_list) < 5 or score >= leader_scores_list[4]):
        lb.update_leaderboard(leaderboard_file_name, leader_names_list, leader_scores_list, player_name, score)
-       lb.draw_leaderboard(True, leader_names_list, leader_scores_list, spot, score)
+       lb.draw_leaderboard(True, leader_names_list, leader_scores_list, shell, score)
 
     else:
-       lb.draw_leaderboard(False, leader_names_list, leader_scores_list, spot, score)
+       lb.draw_leaderboard(False, leader_names_list, leader_scores_list, shell, score)
 
 #-----events----------------
 shell.onclick(shell_clicked)
