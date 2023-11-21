@@ -8,56 +8,52 @@ import leaderboard as lb
 # -----game configuration----
 leaderboard_file_name = "a122_leaderboard.txt"
 player_name = input("What is your name? ")
+font_setup = ("Arial", 20, "normal")
 shell_color = "pink"
 shell_size = 2
 shell_shape = "turtle"
+# -----countdown variables-----
+timer = 5
+counter_interval = 1000   # 1000 represents 1 second
+timer_up = False
 score = 0
-font_setup = ("Arial", 20, "normal")
+
 
 # -----initialize turtle-----
 shell = trtl.Turtle()
-shell.fillcolor(shell_color)
-shell.turtlesize(shell_size)
 shell.shape(shell_shape)
-score_writer = trtl.Turtle()
-score_writer.penup()
-score_writer.goto(400,350)
-counter =  trtl.Turtle()
-counter.penup()
-counter.goto(-400,350)
-colors = ["red", "blue", "green", "purple", "navy", "orange"]
-sizes = [4,3,2,1,0.5]
+shell.turtlesize(shell_size)
+shell.fillcolor(shell_color)
 
-#-----countdown variables-----
-font_setup = ("Arial", 20, "normal")
-timer = 5
-counter_interval = 1000   #1000 represents 1 second
-timer_up = False
+score_writer = trtl.Turtle()
+score_writer.hideturtle()
+score_writer.penup()
+score_writer.goto(400, 350)
+score_writer.pendown()
+score_writer.showturtle()
+
+counter = trtl.Turtle()
+counter.hideturtle()
+counter.penup()
+counter.goto(-400, 350)
+counter.pendown()
+counter.showturtle()
+colors = ["red", "blue", "green", "purple", "navy", "orange"]
 
 
 # -----game functions--------
-def sizeChange():
-    newSize = rand.choice(sizes)
-    shell.turtlesize(newSize)
-def colorChange():
-    newColor = rand.choice(colors)
-    shell.fillcolor(newColor)
-    shell.stamp()
-    shell.fillcolor(shell_color)
-    # shell.turtlesize(shell_size)
-
 def countdown():
-  global timer, timer_up
-  counter.clear()
-  if timer <= 0:
-    counter.write("Time's Up", font=font_setup)
-    timer_up = True
-    manage_leaderboard()
-    shell.hideturtle()
-  else:
-    counter.write("Timer: " + str(timer), font=font_setup)
-    timer -= 1
-    counter.getscreen().ontimer(countdown, counter_interval)
+    global timer, timer_up
+    counter.clear()
+    if timer <= 0:
+        counter.write("Time's Up", font=font_setup)
+        timer_up = True
+        manage_leaderboard()
+        shell.hideturtle()
+    else:
+        counter.write("Timer: " + str(timer), font=font_setup)
+        timer -= 1
+        counter.getscreen().ontimer(countdown, counter_interval)
 
 
 def update_score():
@@ -66,25 +62,50 @@ def update_score():
     score_writer.clear()
     score_writer.write(score, font=font_setup)
 
+
+def shell_clicked(x, y):
+    global timer_up
+    if (not timer_up):
+        update_score()
+        change_position()
+    else:
+        shell.hideturtle()
+'''    
+    countdown()
+    change_position()
+    update_score()
+'''
+
+def sizeChange():
+    sizes = [4, 3, 2, 1, 0.5]
+    shell.shapesize(rand.choice(sizes))
+
+
+
+def colorChange():
+    shell.fillcolor(rand.choice(colors))
+    shell.stamp()
+    shell.fillcolor(shell_color)
+    # shell.turtlesize(shell_size)
+
+
 def change_position():
-    new_xpos = rand.randint(-300,300)
-    new_ypos = rand.randint(-300,300)
+    sizeChange()
+    colorChange()
+    new_xpos = rand.randint(-300, 300)
+    new_ypos = rand.randint(-300, 300)
     shell.penup()
     shell.hideturtle()
     shell.goto(new_xpos, new_ypos)
-    shell.pendown()
     shell.showturtle()
+    shell.pendown()
 
-def shell_clicked(x,y):
-    countdown()
-    sizeChange()
-    colorChange()
-    change_position()
-    update_score()
+
 
 # manages the leaderboard for top 5 scorers
-def manage_leaderboard():
 
+
+def manage_leaderboard():
     global score
     global shell
 
@@ -94,15 +115,15 @@ def manage_leaderboard():
 
     # show the leaderboard with or without the current player
     if (len(leader_scores_list) < 5 or score >= leader_scores_list[4]):
-       lb.update_leaderboard(leaderboard_file_name, leader_names_list, leader_scores_list, player_name, score)
-       lb.draw_leaderboard(True, leader_names_list, leader_scores_list, shell, score)
+        lb.update_leaderboard(leaderboard_file_name, leader_names_list, leader_scores_list, player_name, score)
+        lb.draw_leaderboard(True, leader_names_list, leader_scores_list, shell, score)
 
     else:
-       lb.draw_leaderboard(False, leader_names_list, leader_scores_list, shell, score)
+        lb.draw_leaderboard(False, leader_names_list, leader_scores_list, shell, score)
 
-#-----events----------------
+
+# -----events----------------
 shell.onclick(shell_clicked)
-
 
 
 wn = trtl.Screen()
