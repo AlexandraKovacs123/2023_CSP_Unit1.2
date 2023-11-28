@@ -1,3 +1,5 @@
-pat, 50
-jack, 42
-jill, 38
+Pat, 5
+Jack, 1
+Jill, 3
+Bri, 4
+Stephanie, 3

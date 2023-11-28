@@ -70,11 +70,14 @@ def shell_clicked(x, y):
         change_position()
     else:
         shell.hideturtle()
+
+
 '''    
     countdown()
     change_position()
     update_score()
 '''
+
 
 def sizeChange():
     sizes = [4, 3, 2, 1, 0.5]
