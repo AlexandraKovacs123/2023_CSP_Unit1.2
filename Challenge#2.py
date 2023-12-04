@@ -23,16 +23,24 @@ Good luck - you have the period!
 
 # Initial set of CSV values
 csv ="KingsIndian,QueensGambit,TheColle,TheFrench,TheFriedLiver,TheFourKnights"
-value = ""
 indexNum = 0
 index = 0
 myValues = []
-
+value = ""
 
 #Do Part 1 of the challenge below here
 for index in range(len(csv)):
-    if index[index] != ","
+    if csv[index] != ",":
+        value += csv[index]
+        index += 1
 
+    else:
+        myValues.append(value)
+        value = ""
 
 
 #Do part 2 of the challenge below here
+index = 0
+for printTimes in myValues:
+    print(index, "-", printTimes)
+    index += 1
