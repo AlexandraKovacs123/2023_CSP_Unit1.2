@@ -84,7 +84,6 @@ def sizeChange():
     shell.shapesize(rand.choice(sizes))
 
 
-
 def colorChange():
     shell.fillcolor(rand.choice(colors))
     shell.stamp()
@@ -104,10 +103,7 @@ def change_position():
     shell.pendown()
 
 
-
 # manages the leaderboard for top 5 scorers
-
-
 def manage_leaderboard():
     global score
     global shell
