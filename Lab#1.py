@@ -33,15 +33,15 @@ def v80():
     startX = -490
     startY = -300
     endX = 500
-    endY = -290
+    endY = -293
 
-    for line in range(100):
+    for line in range(56):
         lines.penup()
         lines.goto(startX, startY)
         lines.pendown()
         lines.goto(endX, endY)
-        startX += 10
-        endY += 10
+        startX += 17.5
+        endY += 22.5
 
         lines.pendown()
 
