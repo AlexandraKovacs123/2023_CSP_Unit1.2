@@ -9,10 +9,6 @@ pear_image = "pear.gif"
 wn = trtl.Screen()
 drawer = trtl.Turtle()
 
-box = trtl.Turtle()
-speed = trtl.Turtle()
-dot = trtl.Turtle()
-space = trtl.Turtle()
 
 
 letter = "a"
