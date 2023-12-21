@@ -27,45 +27,58 @@ after drawing door
 7. continue walls
 '''
 
-wall_len = 10
+maze_painter.pensize(3)
+wall_len = 20
 addition = 10
-maze_painter.penup()
-maze_painter.left(90)
-maze_painter.forward(20)
-maze_painter.left(90)
-maze_painter.forward(30)
-maze_painter.left(90)
-maze_painter.forward(40)
 path_width = 10
 
 # random locations
-door = rand.randint(path_width * 2, (wall_len - ))
+def locate()
+door = rand.randint((wall_len - path_width*2), path_width * 2)
+barrier = rand.randint((wall_len - path_width*2), path_width * 2)
+door_length = 10
 
 def doors():
-    maze_painter.forward(10)
+    maze_painter.forward(door)
     maze_painter.penup()
-    maze_painter.forward(path_width * 2)
+    maze_painter.forward(door_length * 2)
     maze_painter.pendown()
-    barriers()
+
 
 
 def barriers():
-    maze_painter.forward(40)
+    maze_painter.forward(barrier)
     maze_painter.left(90)
     maze_painter.forward(path_width * 2)
     maze_painter.back(path_width * 2)
     maze_painter.right(90)
 
+def place():
+    if door < barrier:
+        doors()
+        barriers()
+    else:
+        barriers()
+        doors()
 
-
-for spiral in range(22):
-    maze_painter.pendown()
+def spiral():
+    global wall_len, addition
+    maze_painter.penup()
     maze_painter.left(90)
-    doors()
-    maze_painter.forward(original + addition)
-    addition += 10
+    maze_painter.forward(20)
+    maze_painter.left(90)
+    maze_painter.forward(30)
+    maze_painter.left(90)
+    maze_painter.forward(40)
+    maze_painter.pendown()
+    for spiral in range(22):
+        maze_painter.left(90)
+        place()
+        maze_painter.forward(wall_len + addition - 10 - door_length)
+        addition += 10
+    maze_painter.hideturtle()
 
-
+spiral()
 
 wn = trtl.Screen()
 wn.mainloop()
