@@ -18,7 +18,7 @@ apple.showturtle()
 wn.bgcolor("black")
 snake.color('red')
 snake.penup()
-speed = .3
+speed = input("Choose speed: 1, 1.5, 2")
 def travel():
    snake.forward(speed)
    wn.ontimer(travel, 1)
@@ -38,6 +38,7 @@ def randomapple():
    apple.hideturtle()
    apple.goto(locationx, locationy)
    apple.showturtle()
+
 def touch():
     score = ""
     if abs(apple.xcor() - snake.xcor()) < 7:
@@ -47,7 +48,7 @@ def touch():
            randomapple()
            speed += .1
            score += 1
-           scores.write(score)
+
 
 
 
@@ -55,6 +56,5 @@ def touch():
 wn.listen()
 travel()
 randomapple()
-wn = trtl.Screen()
 wn.bgpic("snakeBg4.png")
 wn.mainloop()
